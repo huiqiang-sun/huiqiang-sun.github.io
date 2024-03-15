@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DyBluRF: Dynamic Neural Radiance Fields from Blurry Monocular Video</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2> DyBluRF: Dynamic Neural Radiance Fields from Blurry Monocular Video</h2>
+            <h4 style="color:#5a6268;">CVPR 2024</h4>
+            <h6>We're currently working on this page. Please check back soon.</h6>
+            <hr>
+            <h6><a href="https://huiqiang-sun.github.io/" target="_blank">Huiqiang Sun</a><sup>1</sup>, 
+                <a href="https://xingyi-li.github.io/" target="_blank">Xingyi Li</a><sup>1</sup>, 
+                <a href="https://leoshen917.github.io/" target="_blank">Liao Shen</a><sup>1</sup>, 
+                <a href="https://scholar.google.com/citations?hl=en&user=g_Y0w7MAAAAJ" target="_blank">Xinyi Ye</a><sup>1</sup>, 
+                <a href="https://sites.google.com/site/kexian1991/" target="_blank">Ke Xian</a><sup>2</sup>, 
+                <a href="http://english.aia.hust.edu.cn/info/1030/1072.htm" target="_blank">Zhiguo Cao</a><sup>1*</sup>,
+            <p><sup>1</sup>School of AIA, Huazhong University of Science and Technology &nbsp;&nbsp; 
+               <sup>2</sup>School of EIC, Huazhong University of Science and Technology</p>
+            <div class="row justify-content-center">
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://huiqiang-sun.github.io/dyblurf" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Paper </a> </p>
+              </div>
+              <!-- <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://arxiv.org/abs/2303.05724" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> arXiv </a> </p>
+              </div> -->
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://huiqiang-sun.github.io/dyblurf" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Video </a> </p>
+              </div>
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://huiqiang-sun.github.io/dyblurf" role="button"  target="_blank">
+                    <i class="fa fa-github-alt"></i> Code </a> </p>
+              </div>
+              <!-- <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://huiqiang-sun.github.io/dyblurf" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Supplementary </a> </p>
+              </div>
+              <div class="column">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/xingyi-li/3d-cinemagraphy/blob/main/pdf/3d-cinemagraphy-poster.pdf" role="button"  target="_blank">
+                  <i class="fa fa-file"></i> Poster </a> </p>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- abstract -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Abstract</h3>
+            <hr style="margin-top:0px">
+            <img class="img-fluid" src="images/fig1.png">
+<!--             <img class="img-fluid" src="images/pipeline-v4.png"> -->
+              <!-- <br><br> -->
+          <p class="text-justify">  </p>
+          <p class="text-justify">Recent advancements in dynamic neural radiance field methods have yielded remarkable outcomes. However, these approaches rely on the assumption of sharp input images. When faced with motion blur, existing dynamic NeRF methods often struggle to generate high-quality novel views. In this paper, we propose DyBluRF, a dynamic radiance field approach that synthesizes sharp novel views from a monocular video affected by motion blur. To account for motion blur in input images, we simultaneously capture the camera trajectory and object Discrete Cosine Transform (DCT) trajectories within the scene. Additionally, we employ a global cross-time rendering approach to ensure consistent temporal coherence across the entire scene. We curate a dataset comprising diverse dynamic scenes that are specifically tailored for our task. Experimental results on our dataset demonstrate that our method outperforms existing approaches in generating sharp novel views from motion-blurred inputs while maintaining spatial-temporal consistency of the scene.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Overview video</h3>
+            <hr style="margin-top:0px">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe style="clip-path: inset(1px 1px)" width="100%" height="100%" src="https://www.youtube.com/embed/sqCy7ffTEEY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+   <!-- method -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Method</h3>
+            <hr style="margin-top:0px">
+<!--             <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/teaser_no_audio.mp4" type="video/mp4">
+              </video> -->
+            <img class="img-fluid" src="images/pipeline.png">
+              <!-- <br><br> -->
+          <p class="text-justify">  </p>
+          <!-- <p class="text-justify">To model the motion blur of input images, we discretize the exposure time into $n$ timestamps. Subsequently, we perform ray sampling for the same pixel based on the camera poses for each timestamp. We employ two MLPs to represent dynamic scenes. The dynamic model takes spatial point coordinates $\mathbf{x}$, viewing direction $\mathbf{d}$, and time $t$ as inputs and predicts color $\mathbf{c}_t$, volume density $\sigma_t$, DCT coefficients $\Psi_{\mathbf{x}}^t$, and disocclusion weights $\mathcal{W}_t$. The static model only takes $\mathbf{x}$ and $\mathbf{d}$ as inputs and predicts color $\mathbf{c}$, volume density $\sigma$, and a blending weight $v$ for blending static and dynamic results. After obtaining colors and volume densities for static, dynamic, and blended scenes, we use volume rendering to compute pixel RGB values $\mathbf{C}(\mathbf{r})$. We average the RGB values for the same pixel within the exposure time to obtain the predicted blurry image, and calculate losses with the input blurry image. For dynamic and blended images, losses are directly computed against the input image. For the static loss, we use a mask image to calculate the static regions only.
+</p> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Comparisons</h3>
+            <hr style="margin-top:0px">
+            <!-- <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/real-photos.mp4" type="video/mp4">
+              </video> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Computer-Generated Imagery</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/cg.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Paintings</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/paintings.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Synthetic Images Generated by Stable Diffusion</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/stable.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Historical Photos</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/historical.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Controllable Animation</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/control.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>More Examples</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/more.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+  <!-- Appearsnce Hallucination
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3> Appearance Hallucination of Brandenburg Gate </h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Gate_c.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> of Brandenburg Gate -->
+
+  <!-- Appearance
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Appearance Hallucination of Brandenburg Gate</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Gate_c.mp4" type="video/mp4">
+            <h3>Appearance Hallucination of Trevi Fountain</h3>
+            <hr style="margin-top:0px">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Fountain_c.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> Hallucination -->
+
+ <!-- Appearance Hallucination -->
+<!--   <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Appearance Hallucination</h3>
+            <hr style="margin-top:0px">
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">Brandenburg Gate</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Gate_c.mp4" type="video/mp4">
+            </video>
+
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">Trevi Fountain</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Fountain_c.mp4" type="video/mp4">
+            </video>
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+  <!-- Cross-Appearance Hallucination -->
+<!--   <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Cross-Appearance Hallucination</h3>
+            <hr style="margin-top:0px">
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">From Trevi Fountain to Brandenburg Gate</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/Fountain2Gate_c.mp4" type="video/mp4">
+            </video>
+
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">From Brandenburg Gate to Trevi Fountain</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/Gate2Fountain_c.mp4" type="video/mp4">
+            </video>
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+  <!-- Appearance Hallucination From Artworks -->
+<!--   <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Appearance Hallucination From Artworks</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/art_c.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+<!-- citing -->
+  <!-- <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h3>Citation</h3>
+          <hr style="margin-top:0px">
+              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+<code>@InProceedings{sun2024_dyblurf,
+    author    = {Sun, Huiqiang and Li, Xingyi and Shen, Liao and Ye, Xinyi and Xian, Ke and Cao, Zhiguo},
+    title     = {DyBluRF: Dynamic Neural Radiance Fields from Blurry Monocular Video},
+    booktitle = {arXiv preprint arXiv:2403.06205},
+    year      = {2024},
+}</code></pre>
+          <hr>
+      </div>
+    </div>
+  </div> -->
+
+  <footer class="text-center" style="margin-bottom:10px">
+      Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the website template.
+  </footer>
+
+</body>
+</html>
