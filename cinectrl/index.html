@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CineCtrl: Generative Photographic Control for Scene-Consistent Video Cinematic Editing</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2> CineCtrl: Generative Photographic Control for Scene-Consistent Video Cinematic Editing</h2>
+            <!-- <h4 style="color:#5a6268;">CVPR 2024</h4> -->
+            <!-- <h6>We're currently working on this page. Please check back soon.</h6> -->
+            <hr>
+            <h6><a href="https://huiqiang-sun.github.io/" target="_blank">Huiqiang Sun</a><sup>1,2*</sup>, 
+                <a href="https://leoshen917.github.io/" target="_blank">Liao Shen</a><sup>1,2*</sup>,  
+                <a href="https://scholar.google.com/citations?user=pCHiQQcAAAAJ&hl=en&oi=sra" target="_blank">Zhan Peng</a><sup>1</sup>,  
+                <a href="https://openreview.net/profile?id=~Kun_Wang8" target="_blank">Kun Wang</a><sup>3</sup>,  
+                <a href="https://wusize.github.io/" target="_blank">Size Wu</a><sup>2</sup>, 
+                <a href="https://yuhangzang.github.io/" target="_blank">Yuhang Zang</a><sup>4</sup>, 
+                <a href="https://tqtqliu.github.io/" target="_blank">Tianqi Liu</a><sup>1,2</sup>, 
+                <a href="https://inso-13.github.io/" target="_blank">Zihao Huang</a><sup>1,2</sup>, <br>
+                <a href="https://scholar.google.com.hk/citations?user=4XyqsFwAAAAJ&hl=en" target="_blank">Xingyu Zeng</a><sup>3</sup>, 
+                <a href="http://english.aia.hust.edu.cn/info/1030/1072.htm" target="_blank">Zhiguo Cao</a><sup>1</sup>,
+                <a href="https://weivision.github.io/" target="_blank">Wei Li</a><sup>2&dagger;</sup>, 
+                <a href="https://www.mmlab-ntu.com/person/ccloy/index.html" target="_blank">Chen Change Loy</a><sup>2</sup>,
+            <p><sup>1</sup>HUST &nbsp;&nbsp; 
+               <sup>2</sup>S-Lab, NTU &nbsp;&nbsp;
+               <sup>3</sup>SenseTime &nbsp;&nbsp; 
+               <sup>4</sup>AI Lab</p>
+            <div class="row justify-content-center">
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://arxiv.org/abs/2511.12921" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Paper </a> </p>
+              </div>
+              <!-- <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://arxiv.org/abs/2303.05724" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> arXiv </a> </p>
+              </div> -->
+              <!-- <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://huiqiang-sun.github.io/dyblurf" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Video </a> </p>
+              </div> -->
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/huiqiang-sun/CineCtrl" role="button"  target="_blank">
+                    <i class="fa fa-github-alt"></i> Code </a> </p>
+              </div>
+              <!-- <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://huiqiang-sun.github.io/dyblurf" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Supplementary </a> </p>
+              </div>
+              <div class="column">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/xingyi-li/3d-cinemagraphy/blob/main/pdf/3d-cinemagraphy-poster.pdf" role="button"  target="_blank">
+                  <i class="fa fa-file"></i> Poster </a> </p>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TL;DR -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>TL;DR</h3>
+          <hr style="margin-top:0px">
+
+          <p class="text-justify mb-4">
+            CineCtrl is the first video cinematic editing framework that provides fine control over professional camera parameters. We have five photographic effect parameters (Bokeh blur parameter, Refocused disparity, Focal length, Shutter speed, Color temperature) and one camera poses control parameter. 
+          </p>
+          
+          <div id="resultsCarousel" class="carousel slide" data-ride="carousel" data-interval="false"> 
+            <div class="carousel-inner">
+              
+              <div class="carousel-item active">
+                <div class="row justify-content-center align-items-center"> <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 1:</b> para = [0.8, 0.5, 0, 0, 0.5]   cam:Up
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row justify-content-center align-items-center">
+                  
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 2:</b> para = [0.7, 0.1, 0.4, 0.8, 0]   cam:Up
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row justify-content-center align-items-center">
+                  
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 3:</b> para = [0.5, 0.8, 0.1, 0.7, 0]   cam:Right
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row justify-content-center align-items-center">
+                  
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 4:</b> para = [0.9, 0.8, 0, 0.9, 0]   cam:Left
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row justify-content-center align-items-center">
+                  
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input5.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output5.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 5:</b> para = [0.7, 0.1, 0.0, 0, 0.7]   cam:Up
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row justify-content-center align-items-center">
+                  
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input6.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output6.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 6:</b> para = [0.9, 0.8, 0, 0.8, 0]   cam:Down
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row justify-content-center align-items-center">
+                  
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Input Video</h5>
+                    <div style="height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/input7.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 text-center">
+                    <h5 class="mb-2">Output Result</h5>
+                    <div style="height: 240px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <video style="height: 100%; width: 100%; object-fit: contain;" playsinline autoplay loop muted>
+                          <source src="images/results/output7.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="mt-2 text-center" style="font-size: 0.9rem; color: #555;">
+                  <b>Case 7:</b> para = [0.7, 0.8, 0, 0.7, 0]   cam:Right
+                </p>
+              </div>
+
+            </div>
+
+            <a class="carousel-control-prev" href="#resultsCarousel" role="button" data-slide="prev" style="filter: invert(100%); width: 5%; opacity: 1;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#resultsCarousel" role="button" data-slide="next" style="filter: invert(100%); width: 5%; opacity: 1;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- fine-grained -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Fine-grained Control </h3>
+            <hr style="margin-top:0px">
+            <video width="85%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/fine-grained.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- abstract -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Abstract</h3>
+            <hr style="margin-top:0px">
+            <img class="img-fluid" src="images/fig1.png">
+<!--             <img class="img-fluid" src="images/pipeline-v4.png"> -->
+              <!-- <br><br> -->
+          <p class="text-justify">  </p>
+          <p class="text-justify">Cinematic storytelling is profoundly shaped by the artful manipulation of photographic elements such as depth of field and exposure. These effects are crucial in conveying mood and creating aesthetic appeal.  However, controlling these effects in generative video models remains highly challenging, as most existing methods are restricted to camera motion control. In this paper, we propose CineCtrl, the first video cinematic editing framework that provides fine control over professional camera parameters (e.g., bokeh, shutter speed). We introduce a decoupled cross-attention mechanism to disentangle camera motion from photographic inputs, allowing fine-grained, independent control without compromising scene consistency. To overcome the shortage of training data, we develop a comprehensive data generation strategy that leverages simulated photographic effects with a dedicated real-world collection pipeline, enabling the construction of a large-scale dataset for robust model training. Extensive experiments demonstrate that our model generates high-fidelity videos with precisely controlled, user-specified photographic camera effects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Overview video</h3>
+            <hr style="margin-top:0px">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe style="clip-path: inset(1px 1px)" width="100%" height="100%" src="https://www.youtube.com/embed/sqCy7ffTEEY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+   <!-- method -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Method</h3>
+            <hr style="margin-top:0px">
+<!--             <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/teaser_no_audio.mp4" type="video/mp4">
+              </video> -->
+            <img class="img-fluid" src="images/pipeline.png">
+              <!-- <br><br> -->
+          <p class="text-justify">  </p>
+          <p class="text-justify">Overall framework of CineCtrl, which is built upon the Wan2.1 T2V framework, and extended to a V2V model. To enable camera control, we inject both camera trajectory and photographic parameter signals into the DiT block. Through our proposed Camera-Decoupled Cross-Attention mechanism, we disentangle these two signals to achieve accurate and independent control. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- dataset -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Dataset</h3>
+            <hr style="margin-top:0px">
+            <img class="img-fluid" src="images/dataset.png">
+              <!-- <br><br> -->
+          <p class="text-justify">  </p>
+          <p class="text-justify">We generate training pairs by applying our proposed photographic effect simulator to both a synthetic dataset and a high-quality real-world dataset, which we curated from web and movie sources through a shot detection and filtering pipeline. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- comparison -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Comparisons</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/comparison.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Computer-Generated Imagery</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/cg.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Paintings</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/paintings.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Synthetic Images Generated by Stable Diffusion</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/stable.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Historical Photos</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/historical.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Controllable Animation</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/control.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>More Examples</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                  <source src="images/more.mp4" type="video/mp4">
+              </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+  <!-- Appearsnce Hallucination
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3> Appearance Hallucination of Brandenburg Gate </h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Gate_c.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> of Brandenburg Gate -->
+
+  <!-- Appearance
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Appearance Hallucination of Brandenburg Gate</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Gate_c.mp4" type="video/mp4">
+            <h3>Appearance Hallucination of Trevi Fountain</h3>
+            <hr style="margin-top:0px">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Fountain_c.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> Hallucination -->
+
+ <!-- Appearance Hallucination -->
+<!--   <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Appearance Hallucination</h3>
+            <hr style="margin-top:0px">
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">Brandenburg Gate</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Gate_c.mp4" type="video/mp4">
+            </video>
+
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">Trevi Fountain</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/app_Fountain_c.mp4" type="video/mp4">
+            </video>
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+  <!-- Cross-Appearance Hallucination -->
+<!--   <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Cross-Appearance Hallucination</h3>
+            <hr style="margin-top:0px">
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">From Trevi Fountain to Brandenburg Gate</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/Fountain2Gate_c.mp4" type="video/mp4">
+            </video>
+
+            <h4 style="margin-top:20px; margin-bottom:20px; color:#717980">From Brandenburg Gate to Trevi Fountain</h4>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/Gate2Fountain_c.mp4" type="video/mp4">
+            </video>
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+  <!-- Appearance Hallucination From Artworks -->
+<!--   <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Appearance Hallucination From Artworks</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="images/art_c.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br> -->
+
+<!-- citing -->
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h3>Citation</h3>
+          <hr style="margin-top:0px">
+              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+<code>@article{sun2025generative,
+  title={Generative Photographic Control for Scene-Consistent Video Cinematic Editing},
+  author={Sun, Huiqiang and Shen, Liao and Peng, Zhan and Wang, Kun and Wu, Size and Zang, Yuhang and Liu, Tianqi and Huang, Zihao and Zeng, Xingyu and Cao, Zhiguo and others},
+  journal={arXiv preprint arXiv:2511.12921},
+  year={2025}
+}</code></pre>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center" style="margin-bottom:10px">
+      Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the website template.
+  </footer>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
