@@ -6,9 +6,9 @@
     <title>Prisma-World</title>
     <meta
       name="description"
-      content="Prisma-World: camera-controllable multi-agent video generation with variable agent number."
+      content="Prisma-World: Camera-Controllable Multi-Agent Video Generation Model."
     />
-    <link rel="stylesheet" href="styles.css?v=20260606-minimap-6" />
+    <link rel="stylesheet" href="styles.css?v=20260606-authors-1" />
   </head>
   <body>
     <header class="site-header" aria-label="Primary navigation">
@@ -17,6 +17,8 @@
         <span>Prisma-World</span>
       </a>
       <nav class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
         <a href="#demos">Demos</a>
         <a href="#open-domain">Open Domain</a>
         <a href="#interaction">Interaction</a>
@@ -33,19 +35,23 @@
           <h1 class="prism-title" aria-label="Prisma-World">
             <span>Prisma-</span><span>World</span>
           </h1>
-          <p class="subtitle">
-            <span>Camera-Controllable Multi-Agent</span>
-            <span>Video Generation with Variable Agent Number</span>
-          </p>
-          <p class="hero-copy">
-            Prisma-World generates multiple controllable agent videos together in one
-            denoising process, preserving cross-view consistency while supporting variable
-            agent counts, player interaction, open-domain scenes, and minimap guidance.
-          </p>
+          <p class="subtitle hero-subtitle">Camera-Controllable Multi-Agent Video Generation Model</p>
+          <div class="author-block" aria-label="Paper authors">
+            <p class="author-names">
+              Huiqiang Sun<sup>1</sup>, Zhan Peng<sup>1</sup>, Size Wu<sup>2</sup>,
+              Kun Wang<sup>3</sup>, Kang Liao<sup>2</sup>, Xingyu Zeng<sup>3</sup>,
+              Sheng Jin<sup>3</sup>, Yangguang Li<sup>4</sup>, Zhiguo Cao<sup>1</sup>,
+              Ziwei Liu<sup>2</sup>, Wei Li<sup>2,&dagger;</sup>
+            </p>
+            <p class="author-affiliations">
+              <sup>1</sup>HUST &nbsp;&nbsp; <sup>2</sup>S-Lab, Nanyang Technological University
+              &nbsp;&nbsp; <sup>3</sup>SenseTime Research &nbsp;&nbsp; <sup>4</sup>CUHK
+            </p>
+            <p class="author-note"><sup>&dagger;</sup>Corresponding author</p>
+          </div>
           <div class="hero-actions" aria-label="Project links">
-            <a class="button primary" href="../neurips_2026.pdf">Paper</a>
+            <a class="button primary" href="prisma-world.pdf">Paper</a>
             <a class="button" href="#demos">Video Demos</a>
-            <a class="button" href="#" aria-disabled="true">Code Coming Soon</a>
           </div>
         </div>
         <div class="hero-prism-card" aria-hidden="true">
@@ -61,13 +67,13 @@
       <section class="signal-strip" aria-label="Main capabilities">
         <div>
           <span>01</span>
-          <strong>Joint Multi-Agent Denoising</strong>
-          <p>All agents are generated together instead of being sampled as isolated worlds.</p>
+          <strong>Camera-Aware Consistency</strong>
+          <p>Relative camera geometry encourages overlapping viewpoints to share evidence.</p>
         </div>
         <div>
           <span>02</span>
-          <strong>Camera-Aware Consistency</strong>
-          <p>Relative camera geometry encourages overlapping viewpoints to share evidence.</p>
+          <strong>Diverse Complex Scenes</strong>
+          <p>Prisma-World handles diverse UE scenes and open-domain multi-agent rollouts.</p>
         </div>
         <div>
           <span>03</span>
@@ -82,14 +88,91 @@
       </section>
 
       <section class="section intro-panel">
-        <div class="section-kicker">Core idea</div>
-        <h2>Generate many views as one shared world.</h2>
+        <div class="section-kicker">TL;DR</div>
         <p>
-          Independent video generation can create different versions of the same building,
-          road, or object across agents. Prisma-World treats multi-agent generation as a
-          single geometry-aware denoising problem, so overlapping viewpoints can negotiate a
-          consistent scene state during generation.
+          We propose <strong class="prisma-gradient">Prisma-World</strong>, a multi-agent world model with
+          multi-agent RoPE and camera-aware cross-view consistency modeling. It is capable of
+          synthesizing diverse and complex scenes while guaranteeing multi-view consistency and
+          offering the flexibility to dynamically specify the number of generated agents, and
+          can further use minimap guidance to improve spatial grounding.
         </p>
+      </section>
+
+      <section id="abstract" class="section paper-summary">
+        <div class="section-kicker">Abstract</div>
+        <div class="abstract-card">
+          <p>
+            Video world models have made rapid progress in generating controllable visual
+            experiences, but most of them still simulate the world from a single observer.
+            Extending such models to multiple agents raises a central challenge: if each
+            agent's video is generated independently, overlapping views may instantiate
+            different versions of the same scene, causing inconsistent objects, layouts, and
+            appearances across agents. Conventional camera conditioning controls individual
+            trajectories, but it does not explicitly couple the generation of views that should
+            agree under shared scene geometry. We introduce <strong class="prisma-gradient">Prisma-World</strong>, a
+            camera-controllable multi-agent world model that formulates multi-agent generation
+            as a joint geometry-aware denoising process for cross-view consistency.
+            <strong>Prisma-World</strong> processes all agent videos within one full-attention sequence, uses a
+            multi-agent RoPE design to distinguish agent identities while preserving
+            synchronized temporal coordinates, and injects relative camera geometry into
+            attention to bias overlapping viewpoints toward shared scene evidence. To further
+            strengthen multi-view consistency and enhance global spatial perception, we augment
+            our framework with a progressive simple-to-hard training paradigm alongside
+            minimap-conditioned structural guidance. To facilitate the training and evaluation
+            of multi-agent models, we introduce <strong class="prisma-gradient">PrismaDataset</strong>, a large-scale
+            UE5 dataset with panoramic acquisition across diverse scenes, composable
+            multi-agent view groups with flexible agent counts and complex camera trajectories,
+            and precise camera/action annotations for consistency training and evaluation.
+            Experiments show that a single Prisma-World model can generate high-fidelity
+            multi-agent videos with flexible agent numbers, camera controllability, improved
+            cross-view consistency, and spatial grounding under minimap guidance.
+          </p>
+        </div>
+      </section>
+
+      <section id="method" class="section method-overview">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Method overview</div>
+          </div>
+        </div>
+        <figure class="method-figure">
+          <img src="assets/method-main.png" alt="Overview of the Prisma-World model framework" />
+        </figure>
+        <div class="method-grid">
+          <article>
+            <span>01</span>
+            <h3>Joint Multi-Agent Tokens</h3>
+            <p>
+              Agent videos are packed into one full-attention generation process, so scene
+              layout, objects, and motion can be resolved jointly across views.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Agent-Aware RoPE</h3>
+            <p>
+              Positional encoding distinguishes different agents while aligning frames at the
+              same timestamp, enabling temporal correspondence across generated views.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Camera Geometry Control</h3>
+            <p>
+              Relative camera relations are injected into attention, encouraging views with
+              nearby poses to attend more strongly and produce consistent visual content.
+            </p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Minimap Condition</h3>
+            <p>
+              A local top-down map provides spatial structure for each agent, guiding generation
+              toward layouts and trajectories that match the intended scene plan.
+            </p>
+          </article>
+        </div>
       </section>
 
       <section id="demos" class="section demo-section">
@@ -137,7 +220,7 @@
             <h2>Player-driven rollouts</h2>
           </div>
           <p>
-            Action-conditioned rollouts with synchronized keyboard movement and yaw-style
+            Action-conditioned rollouts with synchronized keyboard movement and
             mouse control visualization.
           </p>
         </div>
@@ -162,7 +245,7 @@
         <div class="section-kicker">Citation</div>
         <h2>BibTeX</h2>
         <pre><code>@article{prismaworld2026,
-  title={Prisma-World: Camera-Controllable Multi-Agent Video Generation with Variable Agent Number},
+  title={Prisma-World: Camera-Controllable Multi-Agent Video Generation Model},
   author={Anonymous Authors},
   journal={arXiv preprint},
   year={2026}
@@ -175,6 +258,6 @@
       <span>Camera-controllable multi-agent video generation</span>
     </footer>
 
-    <script src="script.js?v=20260606-minimap-6"></script>
+    <script src="script.js?v=20260606-authors-1"></script>
   </body>
 </html>
