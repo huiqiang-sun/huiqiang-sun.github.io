@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prisma-World</title>
+    <meta
+      name="description"
+      content="Prisma-World: camera-controllable multi-agent video generation with variable agent number."
+    />
+    <link rel="stylesheet" href="styles.css?v=20260606-minimap-6" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Prisma-World home">
+        <span class="brand-mark"></span>
+        <span>Prisma-World</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#demos">Demos</a>
+        <a href="#open-domain">Open Domain</a>
+        <a href="#interaction">Interaction</a>
+        <a href="#minimap">Minimap</a>
+        <a href="#citation">Citation</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Camera-controllable multi-agent world model</p>
+          <h1 class="prism-title" aria-label="Prisma-World">
+            <span>Prisma-</span><span>World</span>
+          </h1>
+          <p class="subtitle">
+            <span>Camera-Controllable Multi-Agent</span>
+            <span>Video Generation with Variable Agent Number</span>
+          </p>
+          <p class="hero-copy">
+            Prisma-World generates multiple controllable agent videos together in one
+            denoising process, preserving cross-view consistency while supporting variable
+            agent counts, player interaction, open-domain scenes, and minimap guidance.
+          </p>
+          <div class="hero-actions" aria-label="Project links">
+            <a class="button primary" href="../neurips_2026.pdf">Paper</a>
+            <a class="button" href="#demos">Video Demos</a>
+            <a class="button" href="#" aria-disabled="true">Code Coming Soon</a>
+          </div>
+        </div>
+        <div class="hero-prism-card" aria-hidden="true">
+          <div class="glass-prism"></div>
+          <div class="ray left"></div>
+          <div class="ray right cyan"></div>
+          <div class="ray right blue"></div>
+          <div class="ray right magenta"></div>
+          <div class="ray right amber"></div>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="Main capabilities">
+        <div>
+          <span>01</span>
+          <strong>Joint Multi-Agent Denoising</strong>
+          <p>All agents are generated together instead of being sampled as isolated worlds.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>Camera-Aware Consistency</strong>
+          <p>Relative camera geometry encourages overlapping viewpoints to share evidence.</p>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>Variable Agent Number</strong>
+          <p>One model supports different numbers of agents at inference time.</p>
+        </div>
+        <div>
+          <span>04</span>
+          <strong>Minimap Guidance</strong>
+          <p>Top-down structure provides local spatial priors for each agent.</p>
+        </div>
+      </section>
+
+      <section class="section intro-panel">
+        <div class="section-kicker">Core idea</div>
+        <h2>Generate many views as one shared world.</h2>
+        <p>
+          Independent video generation can create different versions of the same building,
+          road, or object across agents. Prisma-World treats multi-agent generation as a
+          single geometry-aware denoising problem, so overlapping viewpoints can negotiate a
+          consistent scene state during generation.
+        </p>
+      </section>
+
+      <section id="demos" class="section demo-section">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Video demos</div>
+            <h2>Variable-agent generation results</h2>
+          </div>
+          <p>
+            Browse results with the arrow controls or select a thumbnail. The placeholders
+            are ready for 2-agent, 3-agent, and 4-agent demo videos.
+          </p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Agent-count demo filters">
+          <button class="tab is-active" data-group="agent" data-filter="two" type="button">2 Agents</button>
+          <button class="tab" data-group="agent" data-filter="three" type="button">3 Agents</button>
+          <button class="tab" data-group="agent" data-filter="four" type="button">4 Agents</button>
+        </div>
+        <div id="agent-carousel" class="carousel-shell" aria-live="polite"></div>
+      </section>
+
+      <section id="open-domain" class="section demo-section">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Open domain</div>
+            <h2>Open-domain multi-agent rollouts</h2>
+          </div>
+          <p>
+            Open-domain examples are also organized by agent number, making it easy to compare
+            how the same model behaves under 2-agent, 3-agent, and 4-agent settings.
+          </p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Open-domain demo filters">
+          <button class="tab is-active" data-group="open" data-filter="two" type="button">2 Agents</button>
+          <button class="tab" data-group="open" data-filter="three" type="button">3 Agents</button>
+          <button class="tab" data-group="open" data-filter="four" type="button">4 Agents</button>
+        </div>
+        <div id="open-carousel" class="carousel-shell" aria-live="polite"></div>
+      </section>
+
+      <section id="interaction" class="section demo-section">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Interactive control</div>
+            <h2>Player-driven rollouts</h2>
+          </div>
+          <p>
+            Action-conditioned rollouts with synchronized keyboard movement and yaw-style
+            mouse control visualization.
+          </p>
+        </div>
+        <div id="interaction-carousel" class="carousel-shell compact-carousel"></div>
+      </section>
+
+      <section id="minimap" class="section minimap-section">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Spatial guidance</div>
+            <h2>Minimap-conditioned generation</h2>
+          </div>
+          <p>
+            Minimap guidance provides each agent with a local top-down structural prior. The
+            demo compares the same rollout before and after introducing the minimap condition.
+          </p>
+        </div>
+        <div id="minimap-carousel" class="carousel-shell minimap-carousel"></div>
+      </section>
+
+      <section id="citation" class="section citation-section">
+        <div class="section-kicker">Citation</div>
+        <h2>BibTeX</h2>
+        <pre><code>@article{prismaworld2026,
+  title={Prisma-World: Camera-Controllable Multi-Agent Video Generation with Variable Agent Number},
+  author={Anonymous Authors},
+  journal={arXiv preprint},
+  year={2026}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Prisma-World</span>
+      <span>Camera-controllable multi-agent video generation</span>
+    </footer>
+
+    <script src="script.js?v=20260606-minimap-6"></script>
+  </body>
+</html>
